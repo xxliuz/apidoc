@@ -1,0 +1,3363 @@
+= ucloudfilm management API
+
+
+[[_overview]]
+== 概览
+ucloudfilm management Api Documentation
+
+
+=== 版本信息
+[%hardbreaks]
+__版本__ : 2.0.0
+
+
+=== URI scheme
+[%hardbreaks]
+__域名__ : 127.0.0.1:8882
+__基础路径__ : /management
+
+
+=== 标签
+
+* ChargeExportRecord : Charge Export Record Controller
+* StudyOperationLog : Study Operation Log Controller
+* bill-statistics-controller : Bill Statistics Controller
+* config-charge-item-controller : Config Charge Item Controller
+* config-charge-template-controller : Config Charge Template Controller
+* file-export-controller : File Export Controller
+* home-controller : Home Controller
+* query-controller : Query Controller
+* storage-space-controller : Storage Space Controller
+
+
+
+
+[[_paths]]
+== 资源
+
+[[_chargeexportrecord_resource]]
+=== ChargeExportRecord
+Charge Export Record Controller
+
+
+[[_querylistusingget]]
+==== 查询导出记录
+....
+GET /management/v1/charge-export-records/query-list
+....
+
+
+===== 参数
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|类型|名称|说明|类型
+|**Query**|**asc** +
+__可选__||string
+|**Query**|**commandType** +
+__可选__|请求类型(仅查询清单需要)Charge,Refund,NotBill,All|string
+|**Query**|**desc** +
+__可选__||string
+|**Query**|**from** +
+__可选__|起始时间(时间戳)|string
+|**Query**|**locationCode** +
+__可选__|机构代码|string
+|**Query**|**locationRefid** +
+__可选__|机构代码Refid|string
+|**Query**|**pageNum** +
+__可选__||integer (int32)
+|**Query**|**pageSize** +
+__可选__||integer (int32)
+|**Query**|**timeType** +
+__可选__|时间维度,StudyTimeStr/AuditDatetime|string
+|**Query**|**to** +
+__可选__|截止时间(时间戳)|string
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 生成
+
+* `application/json;charset=UTF-8`
+
+
+===== 安全
+
+[options="header", cols=".^3a,.^4a,.^13a"]
+|===
+|类型|名称|作用域
+|**apiKey**|**<<_authorization,Authorization>>**|global
+|===
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/management/v1/charge-export-records/query-list
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : "string",
+  "data" : "object",
+  "msgCode" : "string"
+}
+----
+
+
+[[_studyoperationlog_resource]]
+=== StudyOperationLog
+Study Operation Log Controller
+
+
+[[_filmviewusingpost]]
+==== 记录患者浏览记录，修改运营记录
+....
+POST /management/v1/study-operation-logs/film-view-log
+....
+
+
+===== 参数
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|类型|名称|说明|类型
+|**Query**|**accessionNo** +
+__必填__|检查号|string
+|**Query**|**locationCode** +
+__必填__|机构代码|string
+|**Query**|**operationType** +
+__可选__|操作类型（开启云胶片：0、关闭云胶片：1、删除数据：2、恢复数据：3、查看数据：4)|string
+|**Query**|**procedureOffice** +
+__必填__|科室代码|string
+|**Query**|**visitIp** +
+__可选__||string
+|**Query**|**visitLength** +
+__可选__|访问时长|string
+|**Query**|**visitMode** +
+__可选__|访问方式（登录:0、查询：1、二维码：2）|string
+|**Query**|**visitType** +
+__可选__|访问类型(公众号:0、APP：1、小程序：2、PC端：3)|string
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**201**|Created|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `application/json;charset=UTF-8`
+
+
+===== 安全
+
+[options="header", cols=".^3a,.^4a,.^13a"]
+|===
+|类型|名称|作用域
+|**apiKey**|**<<_authorization,Authorization>>**|global
+|===
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/management/v1/study-operation-logs/film-view-log?accessionNo=string&locationCode=string&procedureOffice=string
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : "string",
+  "data" : "object",
+  "msgCode" : "string"
+}
+----
+
+
+[[_querylistusingget_1]]
+==== 查询
+....
+GET /management/v1/study-operation-logs/query-list
+....
+
+
+===== 参数
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|类型|名称|说明|类型
+|**Query**|**accessionNo** +
+__可选__|检查号|string
+|**Query**|**asc** +
+__可选__||string
+|**Query**|**desc** +
+__可选__||string
+|**Query**|**locationCode** +
+__可选__|机构编码|string
+|**Query**|**pageNum** +
+__可选__||integer (int32)
+|**Query**|**pageSize** +
+__可选__||integer (int32)
+|**Query**|**procedureOffice** +
+__可选__|检查科室|string
+|**Query**|**queryType** +
+__可选__|查询记录类型(0: 操作记录， 1: 访问记录)|string
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 生成
+
+* `application/json;charset=UTF-8`
+
+
+===== 安全
+
+[options="header", cols=".^3a,.^4a,.^13a"]
+|===
+|类型|名称|作用域
+|**apiKey**|**<<_authorization,Authorization>>**|global
+|===
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/management/v1/study-operation-logs/query-list
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : "string",
+  "data" : "object",
+  "msgCode" : "string"
+}
+----
+
+
+[[_bill-statistics-controller_resource]]
+=== Bill-statistics-controller
+Bill Statistics Controller
+
+
+[[_getallstatisticsusingget]]
+==== 所有统计结果
+....
+GET /management/v1/statistics
+....
+
+
+===== 参数
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|类型|名称|说明|类型
+|**Query**|**commandType** +
+__可选__|请求类型(仅查询清单需要)Charge,Refund,NotBill,All|string
+|**Query**|**from** +
+__可选__|起始时间(时间戳)|string
+|**Query**|**locationCode** +
+__可选__|机构代码|string
+|**Query**|**locationRefid** +
+__可选__|机构代码Refid|string
+|**Query**|**timeType** +
+__可选__|时间维度,StudyTimeStr/AuditDatetime|string
+|**Query**|**to** +
+__可选__|截止时间(时间戳)|string
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_managementstatisticsresponse,ManagementStatisticsResponse>>
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 生成
+
+* `\*/*`
+
+
+===== 安全
+
+[options="header", cols=".^3a,.^4a,.^13a"]
+|===
+|类型|名称|作用域
+|**apiKey**|**<<_authorization,Authorization>>**|global
+|===
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/management/v1/statistics
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "billStatisticsResponse" : {
+    "accessionCount" : 0,
+    "billCount" : 0,
+    "chargeCount" : 0,
+    "refundCount" : 0
+  },
+  "filmStatusCountResponse" : {
+    "cloudAndPaperFilm" : 0,
+    "cloudFilm" : 0,
+    "notUseFilm" : 0,
+    "paperFilm" : 0,
+    "total" : 0
+  },
+  "modalityTypeCountResponse" : {
+    "string" : 0
+  },
+  "patientTypeCountResponse" : {
+    "e" : 0,
+    "i" : 0,
+    "o" : 0,
+    "other" : 0,
+    "total" : 0
+  },
+  "printCountResponse" : {
+    "currentPeriod" : 0,
+    "otherPeriod" : 0,
+    "total" : 0
+  },
+  "serviceTypeStatisticsResponse" : {
+    "close" : 0,
+    "open" : 0
+  },
+  "storageSpaceResponse" : {
+    "softDelete" : "string",
+    "total" : "string"
+  }
+}
+----
+
+
+[[_getbillstatisticsusingget]]
+==== 运营统计结果
+....
+GET /management/v1/statistics/bill
+....
+
+
+===== 参数
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|类型|名称|说明|类型
+|**Query**|**commandType** +
+__可选__|请求类型(仅查询清单需要)Charge,Refund,NotBill,All|string
+|**Query**|**from** +
+__可选__|起始时间(时间戳)|string
+|**Query**|**locationCode** +
+__可选__|机构代码|string
+|**Query**|**locationRefid** +
+__可选__|机构代码Refid|string
+|**Query**|**timeType** +
+__可选__|时间维度,StudyTimeStr/AuditDatetime|string
+|**Query**|**to** +
+__可选__|截止时间(时间戳)|string
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_billstatisticsresponse,BillStatisticsResponse>>
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 生成
+
+* `\*/*`
+
+
+===== 安全
+
+[options="header", cols=".^3a,.^4a,.^13a"]
+|===
+|类型|名称|作用域
+|**apiKey**|**<<_authorization,Authorization>>**|global
+|===
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/management/v1/statistics/bill
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "accessionCount" : 0,
+  "billCount" : 0,
+  "chargeCount" : 0,
+  "refundCount" : 0
+}
+----
+
+
+[[_getfilmstatuscountusingget]]
+==== 胶片类型统计数量
+....
+GET /management/v1/statistics/filmStatus
+....
+
+
+===== 参数
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|类型|名称|说明|类型
+|**Query**|**commandType** +
+__可选__|请求类型(仅查询清单需要)Charge,Refund,NotBill,All|string
+|**Query**|**from** +
+__可选__|起始时间(时间戳)|string
+|**Query**|**locationCode** +
+__可选__|机构代码|string
+|**Query**|**locationRefid** +
+__可选__|机构代码Refid|string
+|**Query**|**timeType** +
+__可选__|时间维度,StudyTimeStr/AuditDatetime|string
+|**Query**|**to** +
+__可选__|截止时间(时间戳)|string
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_filmstatuscountresponse,FilmStatusCountResponse>>
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 生成
+
+* `\*/*`
+
+
+===== 安全
+
+[options="header", cols=".^3a,.^4a,.^13a"]
+|===
+|类型|名称|作用域
+|**apiKey**|**<<_authorization,Authorization>>**|global
+|===
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/management/v1/statistics/filmStatus
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "cloudAndPaperFilm" : 0,
+  "cloudFilm" : 0,
+  "notUseFilm" : 0,
+  "paperFilm" : 0,
+  "total" : 0
+}
+----
+
+
+[[_getmodalitytypecountusingget]]
+==== 检查类型数量统计
+....
+GET /management/v1/statistics/modalityType
+....
+
+
+===== 参数
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|类型|名称|说明|类型
+|**Query**|**commandType** +
+__可选__|请求类型(仅查询清单需要)Charge,Refund,NotBill,All|string
+|**Query**|**from** +
+__可选__|起始时间(时间戳)|string
+|**Query**|**locationCode** +
+__可选__|机构代码|string
+|**Query**|**locationRefid** +
+__可选__|机构代码Refid|string
+|**Query**|**timeType** +
+__可选__|时间维度,StudyTimeStr/AuditDatetime|string
+|**Query**|**to** +
+__可选__|截止时间(时间戳)|string
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_modalitytypecountresponse,ModalityTypeCountResponse>>
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 生成
+
+* `\*/*`
+
+
+===== 安全
+
+[options="header", cols=".^3a,.^4a,.^13a"]
+|===
+|类型|名称|作用域
+|**apiKey**|**<<_authorization,Authorization>>**|global
+|===
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/management/v1/statistics/modalityType
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "modalityTypeMap" : {
+    "string" : 0
+  }
+}
+----
+
+
+[[_getpatienttypecountusingget]]
+==== 患者类型数量统计
+....
+GET /management/v1/statistics/patientType
+....
+
+
+===== 参数
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|类型|名称|说明|类型
+|**Query**|**commandType** +
+__可选__|请求类型(仅查询清单需要)Charge,Refund,NotBill,All|string
+|**Query**|**from** +
+__可选__|起始时间(时间戳)|string
+|**Query**|**locationCode** +
+__可选__|机构代码|string
+|**Query**|**locationRefid** +
+__可选__|机构代码Refid|string
+|**Query**|**timeType** +
+__可选__|时间维度,StudyTimeStr/AuditDatetime|string
+|**Query**|**to** +
+__可选__|截止时间(时间戳)|string
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_patienttypecountresponse,PatientTypeCountResponse>>
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 生成
+
+* `\*/*`
+
+
+===== 安全
+
+[options="header", cols=".^3a,.^4a,.^13a"]
+|===
+|类型|名称|作用域
+|**apiKey**|**<<_authorization,Authorization>>**|global
+|===
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/management/v1/statistics/patientType
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "e" : 0,
+  "i" : 0,
+  "o" : 0,
+  "other" : 0,
+  "total" : 0
+}
+----
+
+
+[[_getprintcountusingget]]
+==== 打印数量统计
+....
+GET /management/v1/statistics/print
+....
+
+
+===== 参数
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|类型|名称|说明|类型
+|**Query**|**commandType** +
+__可选__|请求类型(仅查询清单需要)Charge,Refund,NotBill,All|string
+|**Query**|**from** +
+__可选__|起始时间(时间戳)|string
+|**Query**|**locationCode** +
+__可选__|机构代码|string
+|**Query**|**locationRefid** +
+__可选__|机构代码Refid|string
+|**Query**|**timeType** +
+__可选__|时间维度,StudyTimeStr/AuditDatetime|string
+|**Query**|**to** +
+__可选__|截止时间(时间戳)|string
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_printcountresponse,PrintCountResponse>>
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 生成
+
+* `\*/*`
+
+
+===== 安全
+
+[options="header", cols=".^3a,.^4a,.^13a"]
+|===
+|类型|名称|作用域
+|**apiKey**|**<<_authorization,Authorization>>**|global
+|===
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/management/v1/statistics/print
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "currentPeriod" : 0,
+  "otherPeriod" : 0,
+  "total" : 0
+}
+----
+
+
+[[_getservicetypestatisticsusingget]]
+==== 服务类型统计
+....
+GET /management/v1/statistics/serviceType
+....
+
+
+===== 参数
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|类型|名称|说明|类型
+|**Query**|**commandType** +
+__可选__|请求类型(仅查询清单需要)Charge,Refund,NotBill,All|string
+|**Query**|**from** +
+__可选__|起始时间(时间戳)|string
+|**Query**|**locationCode** +
+__可选__|机构代码|string
+|**Query**|**locationRefid** +
+__可选__|机构代码Refid|string
+|**Query**|**timeType** +
+__可选__|时间维度,StudyTimeStr/AuditDatetime|string
+|**Query**|**to** +
+__可选__|截止时间(时间戳)|string
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_billstatisticsresponse,BillStatisticsResponse>>
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 生成
+
+* `\*/*`
+
+
+===== 安全
+
+[options="header", cols=".^3a,.^4a,.^13a"]
+|===
+|类型|名称|作用域
+|**apiKey**|**<<_authorization,Authorization>>**|global
+|===
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/management/v1/statistics/serviceType
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "accessionCount" : 0,
+  "billCount" : 0,
+  "chargeCount" : 0,
+  "refundCount" : 0
+}
+----
+
+
+[[_getstoragespaceusingget]]
+==== 存储空间统计
+....
+GET /management/v1/statistics/storageSpace
+....
+
+
+===== 参数
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|类型|名称|说明|类型
+|**Body**|**locationCode** +
+__可选__|locationCode|string
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_storagespaceresponse,StorageSpaceResponse>>
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 生成
+
+* `\*/*`
+
+
+===== 安全
+
+[options="header", cols=".^3a,.^4a,.^13a"]
+|===
+|类型|名称|作用域
+|**apiKey**|**<<_authorization,Authorization>>**|global
+|===
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/management/v1/statistics/storageSpace
+----
+
+
+====== 请求 body
+[source,json]
+----
+{ }
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "softDelete" : "string",
+  "total" : "string"
+}
+----
+
+
+[[_config-charge-item-controller_resource]]
+=== Config-charge-item-controller
+Config Charge Item Controller
+
+
+[[_getbylocationidusingget]]
+==== 通过医疗机构ID获取机构结算配置
+....
+GET /management/v1/configCharges/getByLocationId
+....
+
+
+===== 参数
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|类型|名称|说明|类型
+|**Query**|**locationId** +
+__可选__|locationId|string
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 生成
+
+* `application/json;charset=UTF-8`
+
+
+===== 安全
+
+[options="header", cols=".^3a,.^4a,.^13a"]
+|===
+|类型|名称|作用域
+|**apiKey**|**<<_authorization,Authorization>>**|global
+|===
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/management/v1/configCharges/getByLocationId
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : "string",
+  "data" : "object",
+  "msgCode" : "string"
+}
+----
+
+
+[[_listusingget]]
+==== 查询模板配置项
+....
+GET /management/v1/configCharges/list
+....
+
+
+===== 参数
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|类型|名称|说明|类型
+|**Body**|**request** +
+__可选__|ConfigChargeItemRequest|<<_ad5e6071fdaad122030761f86f35b88a,模板配置项>>
+|**Body**|**templateId** +
+__可选__|templateId|integer (int64)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 生成
+
+* `application/json;charset=UTF-8`
+
+
+===== 安全
+
+[options="header", cols=".^3a,.^4a,.^13a"]
+|===
+|类型|名称|作用域
+|**apiKey**|**<<_authorization,Authorization>>**|global
+|===
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/management/v1/configCharges/list
+----
+
+
+====== 请求 body
+[source,json]
+----
+{ }
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : "string",
+  "data" : "object",
+  "msgCode" : "string"
+}
+----
+
+
+[[_deleteusingdelete]]
+==== 删除模板配置项
+....
+DELETE /management/v1/configCharges/{id}
+....
+
+
+===== 参数
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|类型|名称|说明|类型
+|**Path**|**id** +
+__可选__|configcharge id|integer (int64)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 生成
+
+* `application/json;charset=UTF-8`
+
+
+===== 安全
+
+[options="header", cols=".^3a,.^4a,.^13a"]
+|===
+|类型|名称|作用域
+|**apiKey**|**<<_authorization,Authorization>>**|global
+|===
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/management/v1/configCharges/0
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : "string",
+  "data" : "object",
+  "msgCode" : "string"
+}
+----
+
+
+[[_config-charge-template-controller_resource]]
+=== Config-charge-template-controller
+Config Charge Template Controller
+
+
+[[_createusingpost]]
+==== 创建收费模板
+....
+POST /management/v1/configTemplates/
+....
+
+
+===== 参数
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|类型|名称|说明|类型
+|**Body**|**request** +
+__可选__|configtemplate|<<_configtemplaterequest,ConfigTemplateRequest>>
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**201**|Created|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `application/json;charset=UTF-8`
+
+
+===== 安全
+
+[options="header", cols=".^3a,.^4a,.^13a"]
+|===
+|类型|名称|作用域
+|**apiKey**|**<<_authorization,Authorization>>**|global
+|===
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/management/v1/configTemplates/
+----
+
+
+====== 请求 body
+[source,json]
+----
+{
+  "templateName" : "xxx收费模板"
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : "string",
+  "data" : "object",
+  "msgCode" : "string"
+}
+----
+
+
+[[_configmanagementusingpost]]
+==== 运营策略设置(id存在则更新,不存在则新增)
+....
+POST /management/v1/configTemplates/configManagement
+....
+
+
+===== 参数
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|类型|名称|说明|类型
+|**Body**|**configManagementModel** +
+__可选__|ConfigManagementModel|<<_e80838225c51052d2c0cf2931f1871f0,配置运营策略model>>
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**201**|Created|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `application/json;charset=UTF-8`
+
+
+===== 安全
+
+[options="header", cols=".^3a,.^4a,.^13a"]
+|===
+|类型|名称|作用域
+|**apiKey**|**<<_authorization,Authorization>>**|global
+|===
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/management/v1/configTemplates/configManagement
+----
+
+
+====== 请求 body
+[source,json]
+----
+{
+  "chargeTemplateId" : 0,
+  "deleteHardLife" : 10,
+  "deleteHardLifeUnit" : 2,
+  "deleteSoftShow" : false,
+  "id" : 0,
+  "locationRefid" : "string",
+  "softConditionList" : [ ]
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : "string",
+  "data" : "object",
+  "msgCode" : "string"
+}
+----
+
+
+[[_getbyidusingget]]
+==== 通过医疗机构ID获取运营策略配置
+....
+GET /management/v1/configTemplates/getByLocationId
+....
+
+
+===== 参数
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|类型|名称|说明|类型
+|**Query**|**locationId** +
+__可选__|locationId|string
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 生成
+
+* `application/json;charset=UTF-8`
+
+
+===== 安全
+
+[options="header", cols=".^3a,.^4a,.^13a"]
+|===
+|类型|名称|作用域
+|**apiKey**|**<<_authorization,Authorization>>**|global
+|===
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/management/v1/configTemplates/getByLocationId
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : "string",
+  "data" : "object",
+  "msgCode" : "string"
+}
+----
+
+
+[[_getdetailbytemplateidusingget]]
+==== 通过模板id 获取模板配置项详情
+....
+GET /management/v1/configTemplates/getDetailByTemplateId
+....
+
+
+===== 参数
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|类型|名称|说明|类型
+|**Query**|**templateId** +
+__可选__|templateId|integer (int64)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 生成
+
+* `application/json;charset=UTF-8`
+
+
+===== 安全
+
+[options="header", cols=".^3a,.^4a,.^13a"]
+|===
+|类型|名称|作用域
+|**apiKey**|**<<_authorization,Authorization>>**|global
+|===
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/management/v1/configTemplates/getDetailByTemplateId
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : "string",
+  "data" : "object",
+  "msgCode" : "string"
+}
+----
+
+
+[[_getextraconfigbylocationidusingget]]
+==== 通过LocationId获取额外配置
+....
+GET /management/v1/configTemplates/getExtraConfigByLocationId
+....
+
+
+===== 参数
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|类型|名称|说明|类型
+|**Query**|**locationId** +
+__可选__|locationId|string
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 生成
+
+* `application/json;charset=UTF-8`
+
+
+===== 安全
+
+[options="header", cols=".^3a,.^4a,.^13a"]
+|===
+|类型|名称|作用域
+|**apiKey**|**<<_authorization,Authorization>>**|global
+|===
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/management/v1/configTemplates/getExtraConfigByLocationId
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : "string",
+  "data" : "object",
+  "msgCode" : "string"
+}
+----
+
+
+[[_listusingget_1]]
+==== 获取所有收费模板列表
+....
+GET /management/v1/configTemplates/list
+....
+
+
+===== 响应
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 生成
+
+* `application/json;charset=UTF-8`
+
+
+===== 安全
+
+[options="header", cols=".^3a,.^4a,.^13a"]
+|===
+|类型|名称|作用域
+|**apiKey**|**<<_authorization,Authorization>>**|global
+|===
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/management/v1/configTemplates/list
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : "string",
+  "data" : "object",
+  "msgCode" : "string"
+}
+----
+
+
+[[_listactivityusingget]]
+==== 获取有效收费模板列表
+....
+GET /management/v1/configTemplates/list-active
+....
+
+
+===== 响应
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 生成
+
+* `application/json;charset=UTF-8`
+
+
+===== 安全
+
+[options="header", cols=".^3a,.^4a,.^13a"]
+|===
+|类型|名称|作用域
+|**apiKey**|**<<_authorization,Authorization>>**|global
+|===
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/management/v1/configTemplates/list-active
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : "string",
+  "data" : "object",
+  "msgCode" : "string"
+}
+----
+
+
+[[_saveorupdatetemplateitemusingpost]]
+==== 保存或者更新模板配置项
+....
+POST /management/v1/configTemplates/saveOrUpdateTemplateItem
+....
+
+
+===== 参数
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|类型|名称|说明|类型
+|**Body**|**request** +
+__可选__|ConfigChargeRequest|<<_configchargerequest,ConfigChargeRequest>>
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**201**|Created|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `application/json;charset=UTF-8`
+
+
+===== 安全
+
+[options="header", cols=".^3a,.^4a,.^13a"]
+|===
+|类型|名称|作用域
+|**apiKey**|**<<_authorization,Authorization>>**|global
+|===
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/management/v1/configTemplates/saveOrUpdateTemplateItem
+----
+
+
+====== 请求 body
+[source,json]
+----
+{
+  "configChargeItemList" : [ {
+    "charge" : 10.0,
+    "chargeType" : 1,
+    "chargeUnit" : 1,
+    "examType" : "ALL",
+    "filmType" : 0,
+    "patientType" : "Other",
+    "serviceType" : 1,
+    "storeLife" : 10,
+    "storeLifeUnit" : 1
+  } ],
+  "extraConfig" : {
+    "refundNum" : "0",
+    "immediatelyPrintNum" : "0",
+    "serviceTypeNum" : "0",
+    "storeLoad" : "0",
+    "printNum" : "0",
+    "filmTypeNum" : "0",
+    "receivableNum" : "0",
+    "overPrintNum" : "0",
+    "studyTypeNum" : "0",
+    "patientTypeNum" : "0",
+    "receiptsNum" : "0"
+  },
+  "templateId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : "string",
+  "data" : "object",
+  "msgCode" : "string"
+}
+----
+
+
+[[_updateusingput]]
+==== 更新收费模板名称
+....
+PUT /management/v1/configTemplates/updateTemplateName
+....
+
+
+===== 参数
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|类型|名称|说明|类型
+|**Body**|**request** +
+__可选__|ConfigTemplateUpdateRequest|<<_configtemplateupdaterequest,ConfigTemplateUpdateRequest>>
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**201**|Created|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `application/json;charset=UTF-8`
+
+
+===== 安全
+
+[options="header", cols=".^3a,.^4a,.^13a"]
+|===
+|类型|名称|作用域
+|**apiKey**|**<<_authorization,Authorization>>**|global
+|===
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/management/v1/configTemplates/updateTemplateName
+----
+
+
+====== 请求 body
+[source,json]
+----
+{
+  "id" : 0,
+  "templateName" : "xxx收费模板"
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : "string",
+  "data" : "object",
+  "msgCode" : "string"
+}
+----
+
+
+[[_deleteusingdelete_1]]
+==== 删除收费模板(标注为无效)
+....
+DELETE /management/v1/configTemplates/{id}
+....
+
+
+===== 参数
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|类型|名称|说明|类型
+|**Path**|**id** +
+__可选__|configtemplate id|integer (int64)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 生成
+
+* `application/json;charset=UTF-8`
+
+
+===== 安全
+
+[options="header", cols=".^3a,.^4a,.^13a"]
+|===
+|类型|名称|作用域
+|**apiKey**|**<<_authorization,Authorization>>**|global
+|===
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/management/v1/configTemplates/0
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : "string",
+  "data" : "object",
+  "msgCode" : "string"
+}
+----
+
+
+[[_file-export-controller_resource]]
+=== File-export-controller
+File Export Controller
+
+
+[[_getbillusingget]]
+==== 收费清单导出
+....
+GET /management/v1/file/bill
+....
+
+
+===== 参数
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|类型|名称|说明|类型
+|**Query**|**asc** +
+__可选__||string
+|**Query**|**commandType** +
+__可选__|请求类型(仅查询清单需要)Charge,Refund,NotBill,All|string
+|**Query**|**desc** +
+__可选__||string
+|**Query**|**from** +
+__可选__|起始时间(时间戳)|string
+|**Query**|**locationCode** +
+__可选__|机构代码|string
+|**Query**|**locationRefid** +
+__可选__|机构代码Refid|string
+|**Query**|**pageNum** +
+__可选__||integer (int32)
+|**Query**|**pageSize** +
+__可选__||integer (int32)
+|**Query**|**timeType** +
+__可选__|时间维度,StudyTimeStr/AuditDatetime|string
+|**Query**|**to** +
+__可选__|截止时间(时间戳)|string
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 生成
+
+* `\*/*`
+
+
+===== 安全
+
+[options="header", cols=".^3a,.^4a,.^13a"]
+|===
+|类型|名称|作用域
+|**apiKey**|**<<_authorization,Authorization>>**|global
+|===
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/management/v1/file/bill
+----
+
+
+[[_getbillandallstatisticsusingget]]
+==== 收费和收费统计结果清单导出
+....
+GET /management/v1/file/billAndStatistics
+....
+
+
+===== 参数
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|类型|名称|说明|类型
+|**Query**|**asc** +
+__可选__||string
+|**Query**|**commandType** +
+__可选__|请求类型(仅查询清单需要)Charge,Refund,NotBill,All|string
+|**Query**|**desc** +
+__可选__||string
+|**Query**|**from** +
+__可选__|起始时间(时间戳)|string
+|**Query**|**locationCode** +
+__可选__|机构代码|string
+|**Query**|**locationRefid** +
+__可选__|机构代码Refid|string
+|**Query**|**pageNum** +
+__可选__||integer (int32)
+|**Query**|**pageSize** +
+__可选__||integer (int32)
+|**Query**|**timeType** +
+__可选__|时间维度,StudyTimeStr/AuditDatetime|string
+|**Query**|**to** +
+__可选__|截止时间(时间戳)|string
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 生成
+
+* `\*/*`
+
+
+===== 安全
+
+[options="header", cols=".^3a,.^4a,.^13a"]
+|===
+|类型|名称|作用域
+|**apiKey**|**<<_authorization,Authorization>>**|global
+|===
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/management/v1/file/billAndStatistics
+----
+
+
+[[_excellistdownloadserviceusingpost]]
+==== 运营清单导出
+....
+POST /management/v1/file/operation
+....
+
+
+===== 参数
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|类型|名称|说明|类型
+|**Query**|**asc** +
+__可选__||string
+|**Query**|**desc** +
+__可选__||string
+|**Query**|**pageNum** +
+__可选__||integer (int32)
+|**Query**|**pageSize** +
+__可选__||integer (int32)
+|**Body**|**queryConditionVo** +
+__必填__|queryConditionVo|<<_queryconditionvo,QueryConditionVo>>
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|无内容
+|**201**|Created|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `\*/*`
+
+
+===== 安全
+
+[options="header", cols=".^3a,.^4a,.^13a"]
+|===
+|类型|名称|作用域
+|**apiKey**|**<<_authorization,Authorization>>**|global
+|===
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/management/v1/file/operation
+----
+
+
+====== 请求 body
+[source,json]
+----
+{
+  "accessionNo" : "string",
+  "auditDatetime" : {
+    "from" : "string",
+    "to" : "string"
+  },
+  "commandType" : "string",
+  "deleteReason" : "string",
+  "deleteStatus" : "string",
+  "filmStatus" : "string",
+  "hisId" : "string",
+  "insertTime" : {
+    "from" : "string",
+    "to" : "string"
+  },
+  "locationCode" : [ "string" ],
+  "patientId" : "string",
+  "patientName" : "string",
+  "paymentStatus" : "string",
+  "printTime" : {
+    "from" : "string",
+    "to" : "string"
+  },
+  "procedureName" : "string",
+  "serviceStatus" : "string",
+  "storageExpireTime" : {
+    "from" : "string",
+    "to" : "string"
+  },
+  "studyTime" : {
+    "from" : "string",
+    "to" : "string"
+  },
+  "viewTime" : {
+    "from" : "string",
+    "to" : "string"
+  }
+}
+----
+
+
+[[_getallstatisticsusingget_1]]
+==== 收费统计结果导出
+....
+GET /management/v1/file/statistics
+....
+
+
+===== 参数
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|类型|名称|说明|类型
+|**Query**|**commandType** +
+__可选__|请求类型(仅查询清单需要)Charge,Refund,NotBill,All|string
+|**Query**|**from** +
+__可选__|起始时间(时间戳)|string
+|**Query**|**locationCode** +
+__可选__|机构代码|string
+|**Query**|**locationRefid** +
+__可选__|机构代码Refid|string
+|**Query**|**timeType** +
+__可选__|时间维度,StudyTimeStr/AuditDatetime|string
+|**Query**|**to** +
+__可选__|截止时间(时间戳)|string
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 生成
+
+* `\*/*`
+
+
+===== 安全
+
+[options="header", cols=".^3a,.^4a,.^13a"]
+|===
+|类型|名称|作用域
+|**apiKey**|**<<_authorization,Authorization>>**|global
+|===
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/management/v1/file/statistics
+----
+
+
+[[_home-controller_resource]]
+=== Home-controller
+Home Controller
+
+
+[[_deleteserviceusingdelete]]
+==== 删除胶片接口
+....
+DELETE /management/v1/home/delete
+....
+
+
+===== 参数
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|类型|名称|说明|类型
+|**Body**|**deleteServiceParamVo** +
+__必填__|deleteServiceParamVo|<<_deleteserviceparamvo,deleteServiceParamVo>>
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 生成
+
+* `\*/*`
+
+
+===== 安全
+
+[options="header", cols=".^3a,.^4a,.^13a"]
+|===
+|类型|名称|作用域
+|**apiKey**|**<<_authorization,Authorization>>**|global
+|===
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/management/v1/home/delete
+----
+
+
+====== 请求 body
+[source,json]
+----
+{
+  "userName" : "string",
+  "userId" : "string",
+  "accessionVoList" : [ {
+    "locationCode" : "string",
+    "procedureOffice" : "string",
+    "accessionNo" : "string",
+    "printTime" : "string",
+    "printStatus" : "string",
+    "filmCount" : 0
+  } ]
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : "string",
+  "data" : "object",
+  "msgCode" : "string"
+}
+----
+
+
+[[_printusingpost]]
+==== 打印传统胶片
+....
+POST /management/v1/home/film/print
+....
+
+
+===== 参数
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|类型|名称|说明|类型
+|**Body**|**filmServiceParamVo** +
+__必填__|filmServiceParamVo|<<_filmserviceparamvo,FilmServiceParamVo>>
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**201**|Created|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `\*/*`
+
+
+===== 安全
+
+[options="header", cols=".^3a,.^4a,.^13a"]
+|===
+|类型|名称|作用域
+|**apiKey**|**<<_authorization,Authorization>>**|global
+|===
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/management/v1/home/film/print
+----
+
+
+====== 请求 body
+[source,json]
+----
+{
+  "commandType" : "string",
+  "accessionVoList" : [ {
+    "locationCode" : "string",
+    "procedureOffice" : "string",
+    "accessionNo" : "string",
+    "printTime" : "string",
+    "printStatus" : "string",
+    "filmCount" : 0
+  } ]
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : "string",
+  "data" : "object",
+  "msgCode" : "string"
+}
+----
+
+
+[[_viewusingpost]]
+==== 访问胶片接口
+....
+POST /management/v1/home/film/view
+....
+
+
+===== 参数
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|类型|名称|说明|类型
+|**Body**|**filmServiceParamVo** +
+__必填__|filmServiceParamVo|<<_filmserviceparamvo,FilmServiceParamVo>>
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**201**|Created|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `\*/*`
+
+
+===== 安全
+
+[options="header", cols=".^3a,.^4a,.^13a"]
+|===
+|类型|名称|作用域
+|**apiKey**|**<<_authorization,Authorization>>**|global
+|===
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/management/v1/home/film/view
+----
+
+
+====== 请求 body
+[source,json]
+----
+{
+  "commandType" : "string",
+  "accessionVoList" : [ {
+    "locationCode" : "string",
+    "procedureOffice" : "string",
+    "accessionNo" : "string",
+    "printTime" : "string",
+    "printStatus" : "string",
+    "filmCount" : 0
+  } ]
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : "string",
+  "data" : "object",
+  "msgCode" : "string"
+}
+----
+
+
+[[_filmserviceusingpost]]
+==== 胶片服务通用接口
+....
+POST /management/v1/home/filmService
+....
+
+
+===== 参数
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|类型|名称|说明|类型
+|**Body**|**filmServiceParamVo** +
+__必填__|filmServiceParamVo|<<_filmserviceparamvo,FilmServiceParamVo>>
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**201**|Created|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `\*/*`
+
+
+===== 安全
+
+[options="header", cols=".^3a,.^4a,.^13a"]
+|===
+|类型|名称|作用域
+|**apiKey**|**<<_authorization,Authorization>>**|global
+|===
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/management/v1/home/filmService
+----
+
+
+====== 请求 body
+[source,json]
+----
+{
+  "commandType" : "string",
+  "accessionVoList" : [ {
+    "locationCode" : "string",
+    "procedureOffice" : "string",
+    "accessionNo" : "string",
+    "printTime" : "string",
+    "printStatus" : "string",
+    "filmCount" : 0
+  } ]
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : "string",
+  "data" : "object",
+  "msgCode" : "string"
+}
+----
+
+
+[[_restoreserviceusingpost]]
+==== 恢复胶片接口
+....
+POST /management/v1/home/restore
+....
+
+
+===== 参数
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|类型|名称|说明|类型
+|**Body**|**deleteServiceParamVo** +
+__必填__|deleteServiceParamVo|<<_deleteserviceparamvo,deleteServiceParamVo>>
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**201**|Created|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `\*/*`
+
+
+===== 安全
+
+[options="header", cols=".^3a,.^4a,.^13a"]
+|===
+|类型|名称|作用域
+|**apiKey**|**<<_authorization,Authorization>>**|global
+|===
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/management/v1/home/restore
+----
+
+
+====== 请求 body
+[source,json]
+----
+{
+  "userName" : "string",
+  "userId" : "string",
+  "accessionVoList" : [ {
+    "locationCode" : "string",
+    "procedureOffice" : "string",
+    "accessionNo" : "string",
+    "printTime" : "string",
+    "printStatus" : "string",
+    "filmCount" : 0
+  } ]
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : "string",
+  "data" : "object",
+  "msgCode" : "string"
+}
+----
+
+
+[[_query-controller_resource]]
+=== Query-controller
+Query Controller
+
+
+[[_getbilllistusingget]]
+==== 清单记录查询
+....
+GET /management/v1/query/bill
+....
+
+
+===== 参数
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|类型|名称|说明|类型
+|**Query**|**asc** +
+__可选__||string
+|**Query**|**commandType** +
+__可选__|请求类型(仅查询清单需要)Charge,Refund,NotBill,All|string
+|**Query**|**desc** +
+__可选__||string
+|**Query**|**from** +
+__可选__|起始时间(时间戳)|string
+|**Query**|**locationCode** +
+__可选__|机构代码|string
+|**Query**|**locationRefid** +
+__可选__|机构代码Refid|string
+|**Query**|**pageNum** +
+__可选__||integer (int32)
+|**Query**|**pageSize** +
+__可选__||integer (int32)
+|**Query**|**timeType** +
+__可选__|时间维度,StudyTimeStr/AuditDatetime|string
+|**Query**|**to** +
+__可选__|截止时间(时间戳)|string
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 生成
+
+* `\*/*`
+
+
+===== 安全
+
+[options="header", cols=".^3a,.^4a,.^13a"]
+|===
+|类型|名称|作用域
+|**apiKey**|**<<_authorization,Authorization>>**|global
+|===
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/management/v1/query/bill
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : "string",
+  "data" : "object",
+  "msgCode" : "string"
+}
+----
+
+
+[[_queryserviceusingpost]]
+==== 运营列表查询
+....
+POST /management/v1/query/queryService
+....
+
+
+===== 参数
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|类型|名称|说明|类型
+|**Query**|**asc** +
+__可选__||string
+|**Query**|**desc** +
+__可选__||string
+|**Query**|**pageNum** +
+__可选__||integer (int32)
+|**Query**|**pageSize** +
+__可选__||integer (int32)
+|**Body**|**queryConditionVo** +
+__必填__|queryConditionVo|<<_queryconditionvo,QueryConditionVo>>
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**201**|Created|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `\*/*`
+
+
+===== 安全
+
+[options="header", cols=".^3a,.^4a,.^13a"]
+|===
+|类型|名称|作用域
+|**apiKey**|**<<_authorization,Authorization>>**|global
+|===
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/management/v1/query/queryService
+----
+
+
+====== 请求 body
+[source,json]
+----
+{
+  "accessionNo" : "string",
+  "auditDatetime" : {
+    "from" : "string",
+    "to" : "string"
+  },
+  "commandType" : "string",
+  "deleteReason" : "string",
+  "deleteStatus" : "string",
+  "filmStatus" : "string",
+  "hisId" : "string",
+  "insertTime" : {
+    "from" : "string",
+    "to" : "string"
+  },
+  "locationCode" : [ "string" ],
+  "patientId" : "string",
+  "patientName" : "string",
+  "paymentStatus" : "string",
+  "printTime" : {
+    "from" : "string",
+    "to" : "string"
+  },
+  "procedureName" : "string",
+  "serviceStatus" : "string",
+  "storageExpireTime" : {
+    "from" : "string",
+    "to" : "string"
+  },
+  "studyTime" : {
+    "from" : "string",
+    "to" : "string"
+  },
+  "viewTime" : {
+    "from" : "string",
+    "to" : "string"
+  }
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : "string",
+  "data" : "object",
+  "msgCode" : "string"
+}
+----
+
+
+[[_storage-space-controller_resource]]
+=== Storage-space-controller
+Storage Space Controller
+
+
+[[_getstoragestatisticsusingpost]]
+==== 获取存储空间大小
+....
+POST /management/v1/accession/storageSpace
+....
+
+
+===== 参数
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|类型|名称|说明|类型
+|**Body**|**storageConditionVo** +
+__可选__|storageConditionVo|<<_storageconditionvo,StorageConditionVo>>
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**201**|Created|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `\*/*`
+
+
+===== 安全
+
+[options="header", cols=".^3a,.^4a,.^13a"]
+|===
+|类型|名称|作用域
+|**apiKey**|**<<_authorization,Authorization>>**|global
+|===
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/management/v1/accession/storageSpace
+----
+
+
+====== 请求 body
+[source,json]
+----
+{
+  "accessionVoList" : [ {
+    "locationCode" : "string",
+    "procedureOffice" : "string",
+    "accessionNo" : "string",
+    "printTime" : "string",
+    "printStatus" : "string",
+    "filmCount" : 0
+  } ]
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : "string",
+  "data" : "object",
+  "msgCode" : "string"
+}
+----
+
+
+
+
+[[_definitions]]
+== 定义
+
+[[_accessionvo]]
+=== AccessionVo
+检查信息
+
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|名称|说明|类型
+|**accessionNo** +
+__必填__|检查号 +
+**样例** : `"string"`|string
+|**filmCount** +
+__可选__|胶片数量,仅打印需要 +
+**样例** : `0`|integer (int32)
+|**locationCode** +
+__必填__|机构代码 +
+**样例** : `"string"`|string
+|**printStatus** +
+__可选__|打印状态,仅打印需要 +
+**样例** : `"string"`|string
+|**printTime** +
+__可选__|打印时间,仅打印需要 +
+**样例** : `"string"`|string
+|**procedureOffice** +
+__必填__|科室名称 +
+**样例** : `"string"`|string
+|===
+
+
+[[_billstatisticsresponse]]
+=== BillStatisticsResponse
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|名称|说明|类型
+|**accessionCount** +
+__可选__|**样例** : `0`|integer (int64)
+|**billCount** +
+__可选__|**样例** : `0`|integer (int64)
+|**chargeCount** +
+__可选__|**样例** : `0`|integer (int64)
+|**refundCount** +
+__可选__|**样例** : `0`|integer (int64)
+|===
+
+
+[[_configchargerequest]]
+=== ConfigChargeRequest
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|名称|说明|类型
+|**configChargeItemList** +
+__可选__|**样例** : `[ "<<_ad5e6071fdaad122030761f86f35b88a>>" ]`|< <<_ad5e6071fdaad122030761f86f35b88a,模板配置项>> > array
+|**extraConfig** +
+__可选__|统计项配置 +
+**样例** : `{
+  "refundNum" : "0",
+  "immediatelyPrintNum" : "0",
+  "serviceTypeNum" : "0",
+  "storeLoad" : "0",
+  "printNum" : "0",
+  "filmTypeNum" : "0",
+  "receivableNum" : "0",
+  "overPrintNum" : "0",
+  "studyTypeNum" : "0",
+  "patientTypeNum" : "0",
+  "receiptsNum" : "0"
+}`|object
+|**templateId** +
+__可选__|配置模板ID +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_configtemplaterequest]]
+=== ConfigTemplateRequest
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|名称|说明|类型
+|**templateName** +
+__可选__|模板名称 +
+**样例** : `"xxx收费模板"`|string
+|===
+
+
+[[_configtemplateupdaterequest]]
+=== ConfigTemplateUpdateRequest
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|名称|说明|类型
+|**id** +
+__可选__|模板id(更新操作使用) +
+**样例** : `0`|integer (int64)
+|**templateName** +
+__可选__|模板名称 +
+**样例** : `"xxx收费模板"`|string
+|===
+
+
+[[_filmserviceparamvo]]
+=== FilmServiceParamVo
+胶片服务参数
+
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|名称|说明|类型
+|**accessionVoList** +
+__必填__|检查匹配参数 +
+**样例** : `[ "<<_accessionvo>>" ]`|< <<_accessionvo,AccessionVo>> > array
+|**commandType** +
+__必填__|检查匹配参数 +
+**样例** : `"string"`|string
+|===
+
+
+[[_filmstatuscountresponse]]
+=== FilmStatusCountResponse
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|名称|说明|类型
+|**cloudAndPaperFilm** +
+__可选__|**样例** : `0`|integer (int64)
+|**cloudFilm** +
+__可选__|**样例** : `0`|integer (int64)
+|**notUseFilm** +
+__可选__|**样例** : `0`|integer (int64)
+|**paperFilm** +
+__可选__|**样例** : `0`|integer (int64)
+|**total** +
+__可选__|**样例** : `0`|integer (int64)
+|===
+
+
+[[_managementstatisticsresponse]]
+=== ManagementStatisticsResponse
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|名称|说明|类型
+|**billStatisticsResponse** +
+__可选__|**样例** : <<_billstatisticsresponse>>|<<_billstatisticsresponse,BillStatisticsResponse>>
+|**filmStatusCountResponse** +
+__可选__|**样例** : <<_filmstatuscountresponse>>|<<_filmstatuscountresponse,FilmStatusCountResponse>>
+|**modalityTypeCountResponse** +
+__可选__|**样例** : `{
+  "string" : 0
+}`|< string, integer (int64) > map
+|**patientTypeCountResponse** +
+__可选__|**样例** : <<_patienttypecountresponse>>|<<_patienttypecountresponse,PatientTypeCountResponse>>
+|**printCountResponse** +
+__可选__|**样例** : <<_printcountresponse>>|<<_printcountresponse,PrintCountResponse>>
+|**serviceTypeStatisticsResponse** +
+__可选__|**样例** : <<_servicetypestatisticsresponse>>|<<_servicetypestatisticsresponse,ServiceTypeStatisticsResponse>>
+|**storageSpaceResponse** +
+__可选__|**样例** : <<_storagespaceresponse>>|<<_storagespaceresponse,StorageSpaceResponse>>
+|===
+
+
+[[_modalitytypecountresponse]]
+=== ModalityTypeCountResponse
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|名称|说明|类型
+|**modalityTypeMap** +
+__可选__|**样例** : `{
+  "string" : 0
+}`|< string, integer (int64) > map
+|===
+
+
+[[_patienttypecountresponse]]
+=== PatientTypeCountResponse
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|名称|说明|类型
+|**e** +
+__可选__|**样例** : `0`|integer (int64)
+|**i** +
+__可选__|**样例** : `0`|integer (int64)
+|**o** +
+__可选__|**样例** : `0`|integer (int64)
+|**other** +
+__可选__|**样例** : `0`|integer (int64)
+|**total** +
+__可选__|**样例** : `0`|integer (int64)
+|===
+
+
+[[_printcountresponse]]
+=== PrintCountResponse
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|名称|说明|类型
+|**currentPeriod** +
+__可选__|**样例** : `0`|integer (int64)
+|**otherPeriod** +
+__可选__|**样例** : `0`|integer (int64)
+|**total** +
+__可选__|**样例** : `0`|integer (int64)
+|===
+
+
+[[_queryconditionvo]]
+=== QueryConditionVo
+查询条件
+
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|名称|说明|类型
+|**accessionNo** +
+__可选__|检查号 +
+**样例** : `"string"`|string
+|**auditDatetime** +
+__可选__|审核时间 +
+**样例** : <<_rangevo>>|<<_rangevo,RangeVo>>
+|**commandType** +
+__可选__|**样例** : `"string"`|string
+|**deleteReason** +
+__可选__|删除原因 +
+**样例** : `"string"`|string
+|**deleteStatus** +
+__可选__|删除状态 +
+**样例** : `"string"`|string
+|**filmStatus** +
+__可选__|胶片状态 +
+**样例** : `"string"`|string
+|**hisId** +
+__可选__|申请单号 +
+**样例** : `"string"`|string
+|**insertTime** +
+__可选__|上传时间 +
+**样例** : <<_rangevo>>|<<_rangevo,RangeVo>>
+|**locationCode** +
+__可选__|医疗机构代码 +
+**样例** : `[ "string" ]`|< string > array
+|**patientId** +
+__可选__|患者ID +
+**样例** : `"string"`|string
+|**patientName** +
+__可选__|患者姓名 +
+**样例** : `"string"`|string
+|**paymentStatus** +
+__可选__|缴费状态 +
+**样例** : `"string"`|string
+|**printTime** +
+__可选__|纸质胶片打印时间 +
+**样例** : <<_rangevo>>|<<_rangevo,RangeVo>>
+|**procedureName** +
+__可选__|检查项目 +
+**样例** : `"string"`|string
+|**serviceStatus** +
+__可选__|服务状态 +
+**样例** : `"string"`|string
+|**storageExpireTime** +
+__可选__|存储到期时间 +
+**样例** : <<_rangevo>>|<<_rangevo,RangeVo>>
+|**studyTime** +
+__可选__|检查时间 +
+**样例** : <<_rangevo>>|<<_rangevo,RangeVo>>
+|**viewTime** +
+__可选__|首次访问时间 +
+**样例** : <<_rangevo>>|<<_rangevo,RangeVo>>
+|===
+
+
+[[_rangevo]]
+=== RangeVo
+范围信息
+
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|名称|说明|类型
+|**from** +
+__可选__|起始值 +
+**样例** : `"string"`|string
+|**to** +
+__可选__|截止值 +
+**样例** : `"string"`|string
+|===
+
+
+[[_result]]
+=== Result
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|名称|说明|类型
+|**code** +
+__可选__|**样例** : `"string"`|string
+|**data** +
+__可选__|**样例** : `"object"`|object
+|**msgCode** +
+__可选__|**样例** : `"string"`|string
+|===
+
+
+[[_servicetypestatisticsresponse]]
+=== ServiceTypeStatisticsResponse
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|名称|说明|类型
+|**close** +
+__可选__|**样例** : `0`|integer (int64)
+|**open** +
+__可选__|**样例** : `0`|integer (int64)
+|===
+
+
+[[_storageconditionvo]]
+=== StorageConditionVo
+胶片服务参数
+
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|名称|说明|类型
+|**accessionVoList** +
+__必填__|检查匹配参数 +
+**样例** : `[ "<<_accessionvo>>" ]`|< <<_accessionvo,AccessionVo>> > array
+|===
+
+
+[[_storagespaceresponse]]
+=== StorageSpaceResponse
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|名称|说明|类型
+|**softDelete** +
+__可选__|**样例** : `"string"`|string
+|**total** +
+__可选__|**样例** : `"string"`|string
+|===
+
+
+[[_deleteserviceparamvo]]
+=== deleteServiceParamVo
+删除服务参数
+
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|名称|说明|类型
+|**accessionVoList** +
+__必填__|检查匹配参数 +
+**样例** : `[ "<<_accessionvo>>" ]`|< <<_accessionvo,AccessionVo>> > array
+|**userId** +
+__可选__|用户Id +
+**样例** : `"string"`|string
+|**userName** +
+__可选__|用户名称 +
+**样例** : `"string"`|string
+|===
+
+
+[[_ad5e6071fdaad122030761f86f35b88a]]
+=== 模板配置项
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|名称|说明|类型
+|**charge** +
+__可选__|收费标准金额 +
+**样例** : `10.0`|number
+|**chargeType** +
+__可选__|收费类型 1-收费 2-不收费 +
+**样例** : `1`|integer (int32)
+|**chargeUnit** +
+__可选__|收费金额计量单位 1-元/张 2-元/例 +
+**样例** : `1`|integer (int32)
+|**examType** +
+__可选__|检查类型 ALL/DR/CT/MR +
+**样例** : `"ALL"`|string
+|**filmType** +
+__可选__|胶片类型 0-初始状态 1-云胶片 2-物理胶片 3-云胶片&amp;物理胶片 +
+**样例** : `0`|integer (int32)
+|**patientType** +
+__可选__|患者类型 E- 体检 I-住院 O-门诊 Other-其他 +
+**样例** : `"Other"`|string
+|**serviceType** +
+__可选__|服务类型 1-开启 2-关闭 +
+**样例** : `1`|integer (int32)
+|**storeLife** +
+__可选__|存储周期 单位年 +
+**样例** : `10`|integer (int32)
+|**storeLifeUnit** +
+__可选__|储周期单位 0-天 1-月 2- 年 +
+**样例** : `1`|integer (int32)
+|===
+
+
+[[_a4656e45304aae58d0042aedd8d1f337]]
+=== 软删除条件model
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|名称|说明|类型
+|**softDeleteLife** +
+__可选__|软删除存储周期 +
+**样例** : `5`|integer (int32)
+|**softDeleteLifeUnit** +
+__可选__|软删除存储周期单位 0-天 1-月 2- 年 +
+**样例** : `2`|integer (int32)
+|**softType** +
+__可选__|删除条件类型 1- 未开通云胶片检查 2-以上传时间计算 3- 以检查时间计算 4-以审核时间计算 +
+**样例** : `1`|integer (int32)
+|===
+
+
+[[_e80838225c51052d2c0cf2931f1871f0]]
+=== 配置运营策略model
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|名称|说明|类型
+|**chargeTemplateId** +
+__可选__|绑定收费结算模板id +
+**样例** : `0`|integer (int64)
+|**deleteHardLife** +
+__可选__|软删除后到系统自动硬删除的周期 +
+**样例** : `10`|integer (int32)
+|**deleteHardLifeUnit** +
+__可选__|软删除后到系统自动硬删除的周期单位 0-天 1-月 2- 年 +
+**样例** : `2`|integer (int32)
+|**deleteSoftShow** +
+__可选__|软删除是否在页面展示 false-不展示 true-展示 +
+**样例** : `false`|boolean
+|**id** +
+__可选__|主键(为空或者0 则执行新增,否则执行修改) +
+**样例** : `0`|integer (int64)
+|**locationRefid** +
+__可选__|locaiton id +
+**样例** : `"string"`|string
+|**softConditionList** +
+__可选__|软删除条件 +
+**样例** : `[ ]`|< <<_a4656e45304aae58d0042aedd8d1f337,软删除条件model>> > array
+|===
+
+
+
+
+[[_securityscheme]]
+== 安全
+
+[[_authorization]]
+=== Authorization
+[%hardbreaks]
+__类型__ : apiKey
+__名称__ : Authorization
+__在__ : HEADER
+
+
+
